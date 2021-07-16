@@ -114,6 +114,6 @@ select {
 }
 
 #div-filha-concreto:hover { 
-    background-color: white;
+    background-color: #fff;
     color:  black;
 }
