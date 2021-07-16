@@ -1,0 +1,119 @@
+* {
+    background-color: rgb(4, 92, 95);
+    color: white;
+}
+
+.layout {
+    background-color: black;
+    height: 90px;
+    text-align: center;
+    padding-top: 25px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    font-family: 'Aclonica', sans-serif;
+    font-size: 60px;
+}
+
+.div-filha {
+    background-color: rgba(37, 34, 34, 0.801);
+    margin: 0;
+    padding: 0;
+    border: 2px solid black;
+    height: 100px;
+    width: 280px;
+    text-align: center;
+    margin-bottom: 7.5PX;
+    margin-right: 5px;
+}
+
+.div-filha h3 {
+    padding: 0;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 7px;
+    font-family: 'Tourney', cursive;
+    background-color: rgba(37, 34, 34, 0.801);
+    height: 40px;
+}
+
+input {
+    background: white;
+    color: black;
+    width: 210px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    height: 25px;
+}
+
+select {
+    background: white;
+    color: black;
+    width: 210px;
+    border-radius: 10px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    height: 25px;
+}
+
+#container {
+    text-align: center;
+}
+
+#INFO-INICIAIS {
+    padding-top: 5px;
+    display: flex;
+}
+
+.GERA-DADOS {
+    margin: 20px;
+}
+
+.GERA-DADOS input {
+    height: 40px;
+    background: coral;
+    color: black;
+    font-weight: bold;
+}
+
+.GERA-DADOS input:hover {
+    background: black;
+    color: coral;
+}
+
+#RESULTADOS-INICIAIS {
+    width: 1000px;
+    display: inline-block;
+}
+
+#RESULTADOS-INICIAIS H3 {
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 7px;
+    font-family: 'Tourney', cursive;
+    background-color: rgba(37, 34, 34, 0.801);
+    height: 40px;
+}
+
+#RESULTADOS-INICIAIS DIV {
+    display: inline-block;
+    width: 290px;
+    height: 120px;
+    margin: 10px;
+    background-color: rgba(37, 34, 34, 0.801);
+}
+
+#RESULTADOS-INICIAIS input {
+    margin-top: 10PX;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#div-filha-concreto:hover { 
+    background-color: white;
+    color:  black;
+}

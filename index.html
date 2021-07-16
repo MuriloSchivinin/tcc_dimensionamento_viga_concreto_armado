@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FONTES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <title>INFORMAÇÕES INICIAIS</title>
+</head>
+
+<body>
+
+    <div id="container">
+        <div class="layout">
+            INFORMAÇÕES INICIAIS
+        </div>
+        <div id="INFO-INICIAIS">
+            <div class="div-filha">
+                <H3>CLASSE DE RESISTÊNCIA DO CONCRETO (fck)</H3>
+                <select>
+                    <option value="C25">C25</option>
+                    <option value="C30">C30</option>
+                    <option value="C35">C35</option>
+                    <option value="C40">C40</option>
+                    <option value="C45">C45</option>
+                    <option value="C50">C50</option>
+                </select> <br>
+            </div>
+
+            <div class="div-filha">
+                <H3>CLASSE DE RESISTÊNCIA DO AÇO</H3>
+                <select>
+                    <option value="CA-50">CA-50</option>
+                </select> <br>
+            </div>
+
+            <div class="div-filha">
+                <H3>CLASSE DE AGRESSIVIDADE</H3>
+                <select   id="CLASSES">
+                    <option value="I">I - FRACA</option>
+                    <option value="II">II - MODERADA</option>
+                    <option value="III">III - FORTE</option>
+                    <option value="IV">IV - MUITO FORTE</option>
+                </select> <br>
+            </div>
+
+            <div class="div-filha">
+                <H3>VÃO EFETIVO (m)</H3>
+                <input id="vao" type="text" placeholder="Informe o Vão efetivo da Viga:">
+            </div>
+
+            <div class="div-filha">
+                <H3>LARGURA (CM)</H3>
+                <input id="largura" type="text" placeholder="Informe a Largura da Viga:">
+            </div>
+
+            <div class="div-filha">
+                <H3>DIÂMETRO ARMADURA TRANSVERSAL (Øt)</H3>
+                <select id="ARM-TRA">
+                    <option value="LON1">5 mm</option>
+                    <option value="LON1">6.3 mm</option>
+                    <option value="LON2">8 mm</option>
+                    <option value="LON3">10 mm</option>
+                    <option value="LON4">12.5 mm</option>
+                </select> <br>
+            </div>
+
+            <div class="div-filha">
+                <H3>DIÂMETRO ARMADURA LONGITUDINAL (Øl)</H3>
+                <select id="ARM-LON">
+                    <option value="TRA1">6.3 mm</option>
+                    <option value="TRA2">8 mm</option>
+                    <option value="TRA3">10 mm</option>
+                    <option value="TRA4">12.5 mm</option>
+                    <option value="TRA5">16 mm</option>
+                    <option value="TRA6">20 mm</option>
+                    <option value="TRA7">22 mm</option>
+                    <option value="TRA8">25 mm</option>
+                </select> <br>
+            </div>
+        </div>
+
+        <div class="GERA-DADOS">
+            <input type="button" value="GERAR DADOS"  onclick="geraDadosIniciais()">
+        </div>
+
+        <div id="RESULTADOS-INICIAIS">
+
+            <div>
+                <H3>COBRIMENTO mm</H3>
+                <input id="cobrimento"type="text" disabled="disabled">
+            </div>
+
+            <div>
+                <H3>ALTURA <br>(PRE-DIMENSIONAMENTO) cm</H3>
+                <input id="altPre"type="text" disabled="disabled">
+            </div>
+
+            <div>
+                <H3>ALTURA ÚTIL (d) cm</H3>
+                <input id="altUti"type="text" disabled="disabled">
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+    <!-- JS -->
+    <script src="app.js"></script>
+</body>
+
+</html>
