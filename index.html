@@ -47,7 +47,7 @@
 
             <div class="div-filha">
                 <H3>CLASSE DE AGRESSIVIDADE</H3>
-                <select   id="CLASSES">
+                <select id="CLASSES">
                     <option value="I">I - FRACA</option>
                     <option value="II">II - MODERADA</option>
                     <option value="III">III - FORTE</option>
@@ -57,12 +57,12 @@
 
             <div class="div-filha">
                 <H3>VÃO EFETIVO (m)</H3>
-                <input id="vao" type="text" placeholder="Informe o Vão efetivo da Viga:">
+                <input id="vao" type="number" min="0" placeholder="Informe o Vão efetivo da Viga:">
             </div>
 
             <div class="div-filha">
                 <H3>LARGURA (CM)</H3>
-                <input id="largura" type="text" placeholder="Informe a Largura da Viga:">
+                <input id="largura" type="number" min="0" placeholder="Informe a Largura da Viga:">
             </div>
 
             <div class="div-filha">
@@ -92,24 +92,24 @@
         </div>
 
         <div class="GERA-DADOS">
-            <input type="button" value="GERAR DADOS"  onclick="geraDadosIniciais()">
+            <input type="button" value="GERAR DADOS" onclick="geraDadosIniciais()">
         </div>
 
         <div id="RESULTADOS-INICIAIS">
 
             <div>
                 <H3>COBRIMENTO mm</H3>
-                <input id="cobrimento"type="text" disabled="disabled">
+                <input id="cobrimento" type="text" disabled="disabled">
             </div>
 
             <div>
                 <H3>ALTURA <br>(PRE-DIMENSIONAMENTO) cm</H3>
-                <input id="altPre"type="text" disabled="disabled">
+                <input id="altPre" type="text" disabled="disabled">
             </div>
 
             <div>
                 <H3>ALTURA ÚTIL (d) cm</H3>
-                <input id="altUti"type="text" disabled="disabled">
+                <input id="altUti" type="text" disabled="disabled">
             </div>
 
         </div>

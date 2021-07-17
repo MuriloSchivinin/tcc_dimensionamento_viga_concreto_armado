@@ -5,6 +5,14 @@ let ALT_UTI
 
 function geraDadosIniciais() {
 
+    if (document.getElementById('vao').value < 0 || document.getElementById('largura').value < 0) {
+
+        alert(`Valores de vão e largura não podem ser inferiores a 0. Por favor, corrija!`)
+        document.getElementById('vao').value = 0
+        document.getElementById('vao').value = 0
+        document.location.reload(true)
+    }
+
     // VARIÁVEIS INFORMADAS PELO USUÁRIO
 
     // ÁREA PARA CÁLCULO DO COBRIMENTO
