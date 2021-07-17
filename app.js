@@ -5,12 +5,16 @@ let ALT_UTI
 
 function geraDadosIniciais() {
 
-    if (document.getElementById('vao').value < 0 || document.getElementById('largura').value < 0) {
-
-        alert(`Valores de vão e largura não podem ser inferiores a 0. Por favor, corrija!`)
-        document.getElementById('vao').value = 0
-        document.getElementById('vao').value = 0
-        document.location.reload(true)
+    if (document.getElementById('vao').value < 0) {
+        alert(`O vão não pode menor que a 0. Por favor, corrija!`)
+        document.getElementById('vao').value = ''
+        //document.location.reload(true)
+        return
+    } else if (document.getElementById('largura').value < 0) {
+        alert(`A largura não pode menor que a 0. Por favor, corrija!`)
+        document.getElementById('largura').value = ''
+        //document.location.reload(true)    
+        return
     }
 
     // VARIÁVEIS INFORMADAS PELO USUÁRIO
