@@ -57,3 +57,8 @@ function geraDadosIniciais() {
     ALT_UTI = ALT_UTI.toFixed(2)
     document.getElementById('altUti').value = ALT_UTI + ' cm'
 }
+
+
+function geraDadosAcoesAtuantes() {
+    document.getElementById('MD').value = (document.getElementById('MK').value * 1.4).toFixed(2)
+}
