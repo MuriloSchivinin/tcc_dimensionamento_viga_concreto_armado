@@ -28,7 +28,7 @@
         <div id="INFO-INICIAIS">
             <div class="div-filha">
                 <H3>CLASSE DE RESISTÊNCIA DO CONCRETO (fck)</H3>
-                <select>
+                <select id="FCK-CONCRETO" onchange="fncFck()">
                     <option value="C25">C25</option>
                     <option value="C30">C30</option>
                     <option value="C35">C35</option>
@@ -36,17 +36,20 @@
                     <option value="C45">C45</option>
                     <option value="C50">C50</option>
                 </select> <br>
+                <input id="fck" type="text" disabled="disabled" style="margin-top: 5px;">
             </div>
 
-            <div class="div-filha">
+            <div class="div-filha" onchange="fncFyk()">
                 <H3>CLASSE DE RESISTÊNCIA DO AÇO</H3>
-                <select>
+                <select id="FYK-ACO">
                     <option value="CA-50">CA-50</option>
                 </select> <br>
+                <input id="fyk" type="text" disabled="disabled" style="margin-top: 5px;">
             </div>
 
             <div class="div-filha">
                 <H3>CLASSE DE AGRESSIVIDADE</H3>
+                <br>
                 <select id="CLASSES">
                     <option value="I">I - FRACA</option>
                     <option value="II">II - MODERADA</option>
@@ -56,17 +59,20 @@
             </div>
 
             <div class="div-filha">
-                <H3>VÃO EFETIVO (m)</H3>
+                <H3><br>VÃO EFETIVO (m)</H3>
+                <br>
                 <input id="vao" type="number" min="0" placeholder="Informe o Vão efetivo da Viga:">
             </div>
 
             <div class="div-filha">
-                <H3>LARGURA (CM)</H3>
+                <H3><br>LARGURA (CM)</H3>
+                <br>
                 <input id="largura" type="number" min="0" placeholder="Informe a Largura da Viga:">
             </div>
 
             <div class="div-filha">
                 <H3>DIÂMETRO ARMADURA TRANSVERSAL (Øt)</H3>
+                <br>
                 <select id="ARM-TRA">
                     <option value="LON1">5 mm</option>
                     <option value="LON1">6.3 mm</option>
@@ -78,6 +84,7 @@
 
             <div class="div-filha">
                 <H3>DIÂMETRO ARMADURA LONGITUDINAL (Øl)</H3>
+                <br>
                 <select id="ARM-LON">
                     <option value="TRA1">6.3 mm</option>
                     <option value="TRA2">8 mm</option>
@@ -98,7 +105,7 @@
         <div id="RESULTADOS-INICIAIS">
 
             <div>
-                <H3>COBRIMENTO mm</H3>
+                <H3><br>COBRIMENTO mm</H3>
                 <input id="cobrimento" type="text" disabled="disabled">
             </div>
 
@@ -106,30 +113,63 @@
                 <H3>ALTURA <br>(PRE-DIMENSIONAMENTO) cm</H3>
                 <input id="altPre" type="text" disabled="disabled">
             </div>
+                <p id="resultado-altura-pre"></p>
 
             <div>
-                <H3>ALTURA ÚTIL (d) cm</H3>
+                <H3><br>ALTURA ÚTIL (d) cm</H3>
                 <input id="altUti" type="text" disabled="disabled">
             </div>
 
         </div>
 
+<!---------------------------------------------------------------------------------------------------------------------->
+
         <div class="layout" style="margin-top: 10px;">
             CÁLCULO DAS AÇOES ATUANTES NA VIGA
         </div>
+
+        <div>
+            <div class="info-ad-acoes">
+                <H3>ɣc</H3>
+                <input id="yc" type="text" disabled="disabled" value="1.4">
+            </div>
+            <div class="info-ad-acoes">
+                <H3>ɣs</H3>
+                <input id="yc" type="text" disabled="disabled" value="1.15">
+            </div>
+        </div>
+
         <div id="dados-acoes">
-            <div class="div-filha">
-                <H3>Mk, máx</H3>
-                <input id="MK" type="number" min="0" placeholder="Informe o valor do momento:">
+            <div class="acoes">
+                <div class="div-filha">
+                    <H3>Mk <br>kN.m</H3>
+                    <br>
+                    <input id="MK" type="number" min="0" placeholder="Informe o valor do momento:">
+                </div>
+
+                <div class="div-filha">
+                    <H3>Md <br>kN.m</H3>
+                    <br>
+                    <input id="MD" type="text" disabled="disabled">
+                </div>
             </div>
 
             <div class="GERA-DADOS">
                 <input type="button" value="GERAR DADOS" onclick="geraDadosAcoesAtuantes()">
             </div>
 
-            <div class="div-filha">
-                <H3>Md</H3>
-                <input id="MD" type="text" disabled="disabled">
+            <div class="acoes">
+                <div class="div-filha">
+                    <H3>Vsk <br>kN.m</H3>
+                    <br>
+                    <input id="Vsk" type="number" min="0" placeholder="Informe o valor do momento:">
+                </div>
+
+                <div class="div-filha">
+                    <H3>Vsd <br>kN.m</H3>
+                    <br>
+                    <input id="Vsd" type="text" disabled="disabled">
+                </div>
             </div>
 
         </div>

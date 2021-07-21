@@ -1,9 +1,22 @@
-// VARIÁVEIS IREI GERAR
-let COBRIMENTO
-let ALT_PRE
-let ALT_UTI
+document.getElementById('fck').value = 25 + ' Mpa'
+function fncFck() {
+    let buscaFck = document.getElementById('FCK-CONCRETO');
+    let fck = (buscaFck.options[buscaFck.selectedIndex].text).substring(1, 3)
+    document.getElementById('fck').value = fck + ' Mpa'
+}
+
+document.getElementById('fyk').value = 500 + ' Mpa'
+function fncFyk() {
+    let buscaFyk = document.getElementById('FYK-ACO');
+    let fyk = (buscaFyk.options[buscaFyk.selectedIndex].text).substring(3, 5)
+    document.getElementById('fyk').value = fyk * 10 + ' Mpa'
+}
 
 function geraDadosIniciais() {
+    // VARIÁVEIS IREI GERAR
+    let COBRIMENTO
+    let ALT_PRE
+    let ALT_UTI
 
     if (document.getElementById('vao').value < 0) {
         alert(`O vão não pode menor que a 0. Por favor, corrija!`)
@@ -39,6 +52,22 @@ function geraDadosIniciais() {
     //ÁREA DA ALTURA DO PRÉ-DIMENSIONAMENTO
     ALT_PRE = (document.getElementById('vao').value) * 10
     document.getElementById('altPre').value = ALT_PRE + ' cm'
+    let RESULT_ALT_PRE = document.getElementById('resultado-altura-pre')
+    if (ALT_PRE >= 60) {
+        RESULT_ALT_PRE.innerHTML = 'Será necessário utilizar armadura de pele.'
+        RESULT_ALT_PRE.style.background = "rgb(243, 74, 68)"
+        RESULT_ALT_PRE.style.color = "black"
+        RESULT_ALT_PRE.style.fontWeight = "bold"
+        RESULT_ALT_PRE.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_ALT_PRE.style.fontSize = "30px"
+    } else {
+        RESULT_ALT_PRE.innerHTML = 'Não é necessário utilizar armadura de pele.'
+        RESULT_ALT_PRE.style.background = "rgb(106, 243, 64)"
+        RESULT_ALT_PRE.style.color = "black"
+        RESULT_ALT_PRE.style.fontWeight = "bold"
+        RESULT_ALT_PRE.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_ALT_PRE.style.fontSize = "30px"
+    }
 
     //ÁREA DA ALTURA DO ÚTIL
     //BUSCANDO ARMADUA TRANSVERSAL
@@ -58,7 +87,10 @@ function geraDadosIniciais() {
     document.getElementById('altUti').value = ALT_UTI + ' cm'
 }
 
-
 function geraDadosAcoesAtuantes() {
-    document.getElementById('MD').value = (document.getElementById('MK').value * 1.4).toFixed(2)
+    let MD = (document.getElementById('MK').value * 1.4).toFixed(2)
+    document.getElementById('MD').value = MD + ' kN.m'
+
+    let VSD = (document.getElementById('Vsk').value * 1.4).toFixed(2)
+    document.getElementById('Vsd').value = VSD + ' kN.m'
 }
