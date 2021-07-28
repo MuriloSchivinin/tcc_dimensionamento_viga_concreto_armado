@@ -135,3 +135,9 @@ select {
 .info-ad-acoes {
     display: inline-block;
 }
+
+#dados-as {
+    margin-top: 5px;
+    padding: 5px;
+    display: inline-block;
+}
