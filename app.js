@@ -102,15 +102,46 @@ function geraDadosAcoesAtuantes() {
 
     let VSD = (document.getElementById('Vsk').value * 1.4).toFixed(2)
     document.getElementById('Vsd').value = VSD + ' kN.m'
+
+
+    /*ÁREA PARA CÁLCULO DE Bx*/
+    /* 
+    [MD = 0,68 * bd² * Bx * fcd *(1 - 0,4 * Bx)] 
+    70 = 0,68 * 20*(36)² * Bx * 1,78 * ()
+    70 = 31373,57 Bx * (1 - 0,4 Bx)
+    70 = 31373,57 Bx - 12549,43 Bx²
+    - 12549,43 Bx² + 31373,57 Bx - 70 = 0
+    a = - 12549,43
+    b = 31373,57
+    c = - 70
+    */
+
+    var a
+    var b
+    var c = MD * -1
+    var delta
+    var x1
+    var x2
+
+    a = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10) * -0.40).toFixed(2)
+    b = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10)).toFixed(2)
+    delta = (Math.pow(b, 2) - (4 * a * c)).toFixed(2)
+
+    x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(3)
+    x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
+
+    alert(`x1 = ${x1} x2 = ${x2} b = ${document.getElementById('largura').value}
+    d² = ${Math.pow(ALT_UTI, 2)} fcd = ${(fcd / 10)}`)
+
 }
 
 var valAs
 function geraDadosAs() {
     let largAs = document.getElementById('largura').value;
-    let bxAs = 0.259//document.getElementById('Bx').value;
-    let ysAs = document.getElementById('ys').value
-    
+    let bxAs = document.getElementById('Bx').value;
+    let ysAs = document.getElementById('ys').value;
+
     valAs = ((0.68 * ALT_UTI * largAs * bxAs * fcd) / (fyk / ysAs)).toFixed(2)
-    document.getElementById('As').value = valAs +  ' cm²'
+    document.getElementById('As').value = valAs + ' cm²'
 
 }
