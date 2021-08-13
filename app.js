@@ -103,36 +103,95 @@ function geraDadosAcoesAtuantes() {
     let VSD = (document.getElementById('Vsk').value * 1.4).toFixed(2)
     document.getElementById('Vsd').value = VSD + ' kN.m'
 
+    
+    var msgBx
+    function calculoBx() {
+        /*ÁREA PARA CÁLCULO DE Bx*/
+        /* 
+        [MD = 0,68 * bd² * Bx * fcd *(1 - 0,4 * Bx)] 
+        70 = 0,68 * 20*(36)² * Bx * 1,78 * ()
+        70 = 31373,57 Bx * (1 - 0,4 Bx)
+        70 = 31373,57 Bx - 12549,43 Bx²
+        - 12549,43 Bx² + 31373,57 Bx - 70 = 0
+        a = - 12549,43
+        b = 31373,57
+        c = - 70
+        */
+        var a
+        var b
+        var c = (MD * -100)
+        var delta
+        var x1
+        var x2
+        var BxDim
 
-    /*ÁREA PARA CÁLCULO DE Bx*/
-    /* 
-    [MD = 0,68 * bd² * Bx * fcd *(1 - 0,4 * Bx)] 
-    70 = 0,68 * 20*(36)² * Bx * 1,78 * ()
-    70 = 31373,57 Bx * (1 - 0,4 Bx)
-    70 = 31373,57 Bx - 12549,43 Bx²
-    - 12549,43 Bx² + 31373,57 Bx - 70 = 0
-    a = - 12549,43
-    b = 31373,57
-    c = - 70
-    */
+        a = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10) * -0.40).toFixed(2)
+        b = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10)).toFixed(2)
+        delta = (Math.pow(b, 2) - (4 * a * c)).toFixed(2)
 
-    var a
-    var b
-    var c = MD * -1
-    var delta
-    var x1
-    var x2
+        /*CONDIÇÕES PARA DIMENSIONAMENTO*/
+        if (delta < 0) {
+            BxDim = ''
+            document.getElementById('Bx').value = BxDim
+            msgBx = 'DUPLA'
+            return
+        }
 
-    a = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10) * -0.40).toFixed(2)
-    b = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10)).toFixed(2)
-    delta = (Math.pow(b, 2) - (4 * a * c)).toFixed(2)
+        x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(3)
+        x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
+        x1 = parseFloat(x1)
+        x2 = parseFloat(x2)
+        /*CASO X1 E X2 FOREM MAIOR QUE 0,45, ARMADURA DUPLA*/
+        if (Math.min(x1, x2) > 0.45) {
+            BxDim = ''
+            document.getElementById('Bx').value = BxDim
+            msgBx = 'DUPLA'
+            return
+        }
 
-    x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(3)
-    x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
-
-    alert(`x1 = ${x1} x2 = ${x2} b = ${document.getElementById('largura').value}
-    d² = ${Math.pow(ALT_UTI, 2)} fcd = ${(fcd / 10)}`)
-
+        /*CASO X1 E X2 ESTIVEREM DENTRO DA CONDIÇÃO, ASSUMIREMOS MAIOR ENTRE ELES*/
+        if (x1 <= 0.45 && x2 <= 0.45) {
+            BxDim = Math.max(x1, x2)
+            document.getElementById('Bx').value = BxDim
+            msgBx = 'SIMPLES'
+            return
+        }
+        if (x1 <= 0.45 || x2 <= 0.45) {
+            if (x1 <= 0.45) {
+                BxDim = x1
+                msgBx = 'SIMPLES'
+                document.getElementById('Bx').value = BxDim
+                return
+            }
+            else if (x2 <= 0.45) {
+                BxDim = x2
+                msgBx = 'SIMPLES'
+                document.getElementById('Bx').value = BxDim
+                return
+            }
+        }
+    }
+    calculoBx()
+    let RESULT_Bx = document.getElementById('resultado-Bx')
+    if (msgBx == 'SIMPLES') {
+        RESULT_Bx.innerHTML = 'DIMENSIONAR ATRAVÉS DE ARMADURA SIMPLES'
+        RESULT_Bx.style.background = "#e9fc2c"
+        RESULT_Bx.style.color = "black"
+        RESULT_Bx.style.fontWeight = "bold"
+        RESULT_Bx.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_Bx.style.fontSize = "30px"
+        RESULT_Bx.style.borderRadius = "10px"
+        RESULT_Bx.style.width = "1000px"
+    } else {
+        RESULT_Bx.innerHTML = 'DIMENSIONAR ATRAVÉS DE ARMADURA DUPLA'
+        RESULT_Bx.style.background = "#e9fc2c"
+        RESULT_Bx.style.color = "black"
+        RESULT_Bx.style.fontWeight = "bold"
+        RESULT_Bx.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_Bx.style.fontSize = "30px"
+        RESULT_Bx.style.borderRadius = "10px"
+        RESULT_Bx.style.width = "1000px"
+    }
 }
 
 var valAs
@@ -141,7 +200,7 @@ function geraDadosAs() {
     let bxAs = document.getElementById('Bx').value;
     let ysAs = document.getElementById('ys').value;
 
-    valAs = ((0.68 * ALT_UTI * largAs * bxAs * fcd) / (fyk / ysAs)).toFixed(2)
+    valAs = ((0.68 * ALT_UTI * largAs * bxAs * fcd) / (fyk / ysAs)).toFixed(3)
     document.getElementById('As').value = valAs + ' cm²'
 
 }

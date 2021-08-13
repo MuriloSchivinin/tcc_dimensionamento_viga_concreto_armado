@@ -132,6 +132,15 @@ select {
     display: flex;
 }
 
+.info-Bx { 
+    display: inline-block;
+    text-align: center;
+}
+
+.info-Bx p {
+    display: block;
+}
+
 .info-ad-acoes {
     display: inline-block;
 }
