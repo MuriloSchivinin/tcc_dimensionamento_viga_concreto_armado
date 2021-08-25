@@ -12,7 +12,7 @@ function fncFck() {
 }
 
 document.getElementById('fyk').value = 500 + ' Mpa'
-var fyk = document.getElementById('fyk').value = 500
+var fyk = document.getElementById('fyk').value = 500 
 function fncFyk() {
     let buscaFyk = document.getElementById('FYK-ACO');
     fyk = (buscaFyk.options[buscaFyk.selectedIndex].text).substring(3, 5)
@@ -96,6 +96,7 @@ function geraDadosIniciais() {
     document.getElementById('altUti').value = ALT_UTI + ' cm'
 }
 
+var msgBx
 function geraDadosAcoesAtuantes() {
     let MD = (document.getElementById('MK').value * 1.4).toFixed(2)
     document.getElementById('MD').value = MD + ' kN.m'
@@ -103,20 +104,10 @@ function geraDadosAcoesAtuantes() {
     let VSD = (document.getElementById('Vsk').value * 1.4).toFixed(2)
     document.getElementById('Vsd').value = VSD + ' kN.m'
 
-    
-    var msgBx
     function calculoBx() {
-        /*ÁREA PARA CÁLCULO DE Bx*/
-        /* 
-        [MD = 0,68 * bd² * Bx * fcd *(1 - 0,4 * Bx)] 
-        70 = 0,68 * 20*(36)² * Bx * 1,78 * ()
-        70 = 31373,57 Bx * (1 - 0,4 Bx)
-        70 = 31373,57 Bx - 12549,43 Bx²
-        - 12549,43 Bx² + 31373,57 Bx - 70 = 0
-        a = - 12549,43
-        b = 31373,57
-        c = - 70
-        */
+
+        var valorFck = (fck.value).substring(0, 2)
+        var bw = document.getElementById('largura').value 
         var a
         var b
         var c = (MD * -100)
@@ -124,50 +115,107 @@ function geraDadosAcoesAtuantes() {
         var x1
         var x2
         var BxDim
+        var lambida
+        var alfaC
 
-        a = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10) * -0.40).toFixed(2)
-        b = (0.68 * document.getElementById('largura').value * Math.pow(ALT_UTI, 2) * (fcd / 10)).toFixed(2)
-        delta = (Math.pow(b, 2) - (4 * a * c)).toFixed(2)
+        /*CÁLCULO DE Beta x PARA CONCRETOS DE BAIXA RESISTÊNCIA*/
+        if (valorFck <= 50) {
 
-        /*CONDIÇÕES PARA DIMENSIONAMENTO*/
-        if (delta < 0) {
-            BxDim = ''
-            document.getElementById('Bx').value = BxDim
-            msgBx = 'DUPLA'
-            return
-        }
+            a = (0.68 * bw * Math.pow(ALT_UTI, 2) * (fcd / 10) * - 0.40).toFixed(2)
+            b = (0.68 * bw * Math.pow(ALT_UTI, 2) * (fcd / 10)).toFixed(2)
+            delta = (Math.pow(b, 2) - (4 * a * c)).toFixed(2)
 
-        x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(3)
-        x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
-        x1 = parseFloat(x1)
-        x2 = parseFloat(x2)
-        /*CASO X1 E X2 FOREM MAIOR QUE 0,45, ARMADURA DUPLA*/
-        if (Math.min(x1, x2) > 0.45) {
-            BxDim = ''
-            document.getElementById('Bx').value = BxDim
-            msgBx = 'DUPLA'
-            return
-        }
-
-        /*CASO X1 E X2 ESTIVEREM DENTRO DA CONDIÇÃO, ASSUMIREMOS MAIOR ENTRE ELES*/
-        if (x1 <= 0.45 && x2 <= 0.45) {
-            BxDim = Math.max(x1, x2)
-            document.getElementById('Bx').value = BxDim
-            msgBx = 'SIMPLES'
-            return
-        }
-        if (x1 <= 0.45 || x2 <= 0.45) {
-            if (x1 <= 0.45) {
-                BxDim = x1
-                msgBx = 'SIMPLES'
+            /*CONDIÇÕES PARA DIMENSIONAMENTO*/
+            if (delta < 0) {
+                BxDim = 0.45
                 document.getElementById('Bx').value = BxDim
+                msgBx = 'DUPLA'
                 return
             }
-            else if (x2 <= 0.45) {
-                BxDim = x2
-                msgBx = 'SIMPLES'
+
+            x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(3)
+            x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
+            x1 = parseFloat(x1)
+            x2 = parseFloat(x2)
+            /*CASO X1 E X2 FOREM MAIOR QUE 0,45, ARMADURA DUPLA*/
+            if (Math.min(x1, x2) > 0.45) {
+                BxDim = 0.45
                 document.getElementById('Bx').value = BxDim
+                msgBx = 'DUPLA'
                 return
+            }
+
+            /*CASO X1 E X2 ESTIVEREM DENTRO DA CONDIÇÃO, ASSUMIREMOS MAIOR ENTRE ELES*/
+            if (x1 <= 0.45 && x2 <= 0.45) {
+                BxDim = Math.max(x1, x2)
+                document.getElementById('Bx').value = BxDim
+                msgBx = 'SIMPLES'
+                return
+            }
+            if (x1 <= 0.45 || x2 <= 0.45) {
+                if (x1 <= 0.45) {
+                    BxDim = x1
+                    msgBx = 'SIMPLES'
+                    document.getElementById('Bx').value = BxDim
+                    return
+                }
+                else if (x2 <= 0.45) {
+                    BxDim = x2
+                    msgBx = 'SIMPLES'
+                    document.getElementById('Bx').value = BxDim
+                    return
+                }
+            }
+        } 
+        /*CÁLCULO DE Beta x PARA CONCRETOS DE ALTA RESISTÊNCIA*/
+        else {
+            lambida = (0.80 - ((valorFck - 50)/400)).toFixed(3)
+            alfaC = (0.85 * (1 - ((valorFck-50)/200))).toFixed(3)
+            
+            a = ((bw * Math.pow(ALT_UTI, 2) * (fcd / 10) * lambida * alfaC) * - (lambida/2)).toFixed(2)
+            b = (bw * Math.pow(ALT_UTI, 2) * (fcd / 10) * lambida * alfaC).toFixed(2)
+            delta = (Math.pow(b, 2) - (4 * a * c)).toFixed(2)
+
+            /*CONDIÇÕES PARA DIMENSIONAMENTO*/
+            if (delta < 0) {
+                BxDim = 0.35
+                document.getElementById('Bx').value = BxDim
+                msgBx = 'DUPLA'
+                return
+            }
+
+            x1 = ((-b + Math.sqrt(delta)) / (2 * a)).toFixed(3)
+            x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
+            x1 = parseFloat(x1)
+            x2 = parseFloat(x2)
+            /*CASO X1 E X2 FOREM MAIOR QUE 0,45, ARMADURA DUPLA*/
+            if (Math.min(x1, x2) > 0.35) {
+                BxDim = 0.35
+                document.getElementById('Bx').value = BxDim
+                msgBx = 'DUPLA'
+                return
+            }
+
+            /*CASO X1 E X2 ESTIVEREM DENTRO DA CONDIÇÃO, ASSUMIREMOS MAIOR ENTRE ELES*/
+            if (x1 <= 0.35 && x2 <= 0.35) {
+                BxDim = Math.max(x1, x2)
+                document.getElementById('Bx').value = BxDim
+                msgBx = 'SIMPLES'
+                return
+            }
+            if (x1 <= 0.35 || x2 <= 0.35) {
+                if (x1 <= 0.35) {
+                    BxDim = x1
+                    msgBx = 'SIMPLES'
+                    document.getElementById('Bx').value = BxDim
+                    return
+                }
+                else if (x2 <= 0.35) {
+                    BxDim = x2
+                    msgBx = 'SIMPLES'
+                    document.getElementById('Bx').value = BxDim
+                    return
+                }
             }
         }
     }
@@ -199,8 +247,24 @@ function geraDadosAs() {
     let largAs = document.getElementById('largura').value;
     let bxAs = document.getElementById('Bx').value;
     let ysAs = document.getElementById('ys').value;
+    let valorFckAs = (fck.value).substring(0, 2);
 
-    valAs = ((0.68 * ALT_UTI * largAs * bxAs * fcd) / (fyk / ysAs)).toFixed(3)
-    document.getElementById('As').value = valAs + ' cm²'
+    if (valorFckAs <= 50) {
+        if (msgBx == 'SIMPLES' ) {
+            valAs = ((0.68 * ALT_UTI * largAs * bxAs * fcd) / (fyk / ysAs)).toFixed(3)
+            document.getElementById('As').value = valAs + ' cm²'            
+        }
+        else {
+            alert('CALCULAR AS PARA ARMADURA DUPLA --> =[CONCRETO DE BAIXA RESISTÊNCIA]')
+        }
+    }
+    else if (valorFckAs > 50) {
+        if (msgBx == 'SIMPLES') {
+            alert('CALCULAR AS PARA ARMADURA SIMPLES --> =[CONCRETO DE ALTA RESISTÊNCIA]')
+        }
+        else {
+            alert('CALCULAR AS PARA ARMADURA DUPLA --> =[CONCRETO DE ALTA RESISTÊNCIA]')
+        }
+    }
 
 }
