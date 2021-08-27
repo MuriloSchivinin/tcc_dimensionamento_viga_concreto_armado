@@ -150,3 +150,7 @@ select {
     padding: 5px;
     display: inline-block;
 }
+
+.calculo-as {
+    display: flex;
+}
