@@ -154,3 +154,25 @@ select {
 .calculo-as {
     display: flex;
 }
+
+
+#dados-cisalhamento {
+    margin-top: 5px;
+    padding: 5px;
+    display: inline-block;
+}
+
+.calculo-cisalhamento {
+    display: flex;
+}
+
+.dados-Vc-Vsw {
+    margin-top: 5px;
+    padding: 5px;
+    display: inline-block;
+}
+
+
+.calculo-Vc-Vsw {
+    display: flex;
+}

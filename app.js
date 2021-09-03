@@ -102,6 +102,10 @@ var VSD
 var bw
 var valorFck
 var BxDim
+var lambida
+var alfaC
+var dominio
+var obsDominio
 function geraDadosAcoesAtuantes() {
     MD = (document.getElementById('MK').value * 1.4).toFixed(2)
     document.getElementById('MD').value = MD + ' kN.m'
@@ -119,8 +123,6 @@ function geraDadosAcoesAtuantes() {
         var delta
         var x1
         var x2
-        var lambida
-        var alfaC
 
         /*CÁLCULO DE Beta x PARA CONCRETOS DE BAIXA RESISTÊNCIA*/
         if (valorFck <= 50) {
@@ -224,6 +226,32 @@ function geraDadosAcoesAtuantes() {
         }
     }
     calculoBx()
+
+    if (BxDim > 0 && BxDim < 0.259) {
+        dominio = 2
+        obsDominio = 'Concreto não trabalha com sua capacidade máxima'
+    } else if (BxDim > 0.259 && BxDim < 0.628) {
+        dominio = 3;
+        obsDominio = 'Situação ideal de projeto, pois há aproveitamento pleno dos dois materiais.'
+    } else if (BxDim > 0.628 && BxDim < 1) {
+        dominio = 4;
+        obsDominio = 'Concreto encontra-se na ruptura e o aço com deformação abaixo de Eyd, evitar esse tipo de dimensionamento'
+    } else {
+        dominio = 0;
+        obsDominio = 'X > d'
+    }
+
+
+    let RESULT_Dominio = document.getElementById('resultado-dominio')
+    RESULT_Dominio.innerHTML = `DOMÍNIO ${dominio}`
+    RESULT_Dominio.style.background = "#e9fc2c"
+    RESULT_Dominio.style.color = "black"
+    RESULT_Dominio.style.fontWeight = "bold"
+    RESULT_Dominio.style.fontFamily = "'Roboto', sans-serif"
+    RESULT_Dominio.style.fontSize = "30px"
+    RESULT_Dominio.style.borderRadius = "10px"
+    RESULT_Dominio.style.width = "1000px"
+
     let RESULT_Bx = document.getElementById('resultado-Bx')
     if (msgBx == 'SIMPLES') {
         RESULT_Bx.innerHTML = 'DIMENSIONAR ATRAVÉS DE ARMADURA SIMPLES'
@@ -249,8 +277,11 @@ function geraDadosAcoesAtuantes() {
 var valAs
 var valAsMin
 var valAlinS
+var asAdotado
+var alinAdotado
+var ysAs
 function geraDadosAs() {
-    let ysAs = document.getElementById('ys').value;
+    ysAs = document.getElementById('ys').value;
 
     if (valorFck <= 50) {
         var pminBaixaResistencia = {
@@ -266,7 +297,6 @@ function geraDadosAs() {
         var fck2 = (buscaFck2.options[buscaFck2.selectedIndex].text)
         var pMin = pminBaixaResistencia[fck2]
 
-
         if (msgBx == 'SIMPLES') {
 
             valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
@@ -277,8 +307,8 @@ function geraDadosAs() {
             document.getElementById('ALs').value = 0.00
         }
         else {
-            //alert('CALCULAR AS PARA ARMADURA DUPLA --> =[CONCRETO DE BAIXA RESISTÊNCIA]')
-            valAsMin = pMin * bw * ALT_PRE
+
+            valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
             valAlinS = (((MD * 100) - (0.68 * bw * (Math.pow(ALT_UTI, 2)) * BxDim * (fcd / 10) * (1 - (0.4 * BxDim)))) / ((fyk / 10 / ysAs) * (ALT_UTI - (ALT_PRE - ALT_UTI)))).toFixed(2)
             valAs = (((0.68 * bw * ALT_UTI * BxDim * (fcd / 10)) + (valAlinS * (fyk / 10 / ysAs))) / (fyk / 10 / ysAs)).toFixed(2)
 
@@ -290,17 +320,52 @@ function geraDadosAs() {
 
     }
     else if (valorFck > 50) {
+        var pminAltaResistencia = {
+            C55: (0.211 / 100).toFixed(5),
+            C60: (0.219 / 100).toFixed(5),
+            C65: (0.226 / 100).toFixed(5),
+            C70: (0.233 / 100).toFixed(5),
+            C75: (0.239 / 100).toFixed(5),
+            C80: (0.245 / 100).toFixed(5),
+            C85: (0.251 / 100).toFixed(5),
+            C90: (0.256 / 100).toFixed(5)
+        }
+
+        var buscaFck3 = document.getElementById('FCK-CONCRETO');
+        var fck3 = (buscaFck3.options[buscaFck3.selectedIndex].text)
+        var pMin2 = pminAltaResistencia[fck3]
+
         if (msgBx == 'SIMPLES') {
-            alert('CALCULAR AS PARA ARMADURA SIMPLES --> =[CONCRETO DE ALTA RESISTÊNCIA]')
+
+            valAsMin = (pMin2 * bw * ALT_PRE).toFixed(2)
+            valAs = ((bw * ALT_UTI * BxDim * fcd * lambida * alfaC) / (fyk / ysAs)).toFixed(2)
+
+            document.getElementById('As-min').value = valAsMin + ' cm²'
+            document.getElementById('As').value = valAs + ' cm²'
+            document.getElementById('ALs').value = 0.00 + ' cm²'
         }
         else {
-            alert('CALCULAR AS PARA ARMADURA DUPLA --> =[CONCRETO DE ALTA RESISTÊNCIA]')
+
+            valAsMin = (pMin2 * bw * ALT_PRE).toFixed(2)
+            valAlinS = (((MD * 100) - (bw * (Math.pow(ALT_UTI, 2)) * BxDim * (fcd / 10) * lambida * alfaC * (1 - (lambida / 2) * BxDim))) / ((fyk / 10 / ysAs) * (ALT_UTI - (ALT_PRE - ALT_UTI)))).toFixed(2)
+            valAs = ((bw * ALT_UTI * BxDim * (fcd / 10) + (valAlinS * (fyk / 10 / ysAs))) / (fyk / 10 / ysAs)).toFixed(2)
+
+            document.getElementById('As-min').value = valAsMin + ' cm²'
+            document.getElementById('As').value = valAs + ' cm²'
+            document.getElementById('ALs').value = valAlinS + ' cm²'
         }
+    }
+
+    if (msgBx == 'SIMPLES') {
+        asAdotado = Math.max(valAsMin, valAs)
+    } else if (msgBx == 'DUPLA') {
+        asAdotado = Math.max(valAsMin, valAs)
+        alinAdotado = Math.max(valAlinS, valAsMin)
     }
 
     let RESULT_As = document.getElementById('resultado-As')
     if (msgBx == 'SIMPLES') {
-        RESULT_As.innerHTML = `AS adotado: ${Math.max(valAsMin, valAs)} cm²`
+        RESULT_As.innerHTML = `AS adotado: ${asAdotado} cm²`
         RESULT_As.style.background = "#e9fc2c"
         RESULT_As.style.color = "black"
         RESULT_As.style.fontWeight = "bold"
@@ -308,7 +373,7 @@ function geraDadosAs() {
         RESULT_As.style.fontSize = "30px"
         RESULT_As.style.borderRadius = "10px"
     } else {
-        RESULT_As.innerHTML = `AS adotado: ${Math.max(valAsMin, valAs)} cm²; A's adotado: ${Math.max(valAlinS, valAsMin)} cm²`
+        RESULT_As.innerHTML = `AS adotado: ${asAdotado} cm²; A's adotado: ${alinAdotado} cm²`
         RESULT_As.style.background = "#e9fc2c"
         RESULT_As.style.color = "black"
         RESULT_As.style.fontWeight = "bold"
@@ -316,5 +381,119 @@ function geraDadosAs() {
         RESULT_As.style.fontSize = "30px"
         RESULT_As.style.borderRadius = "10px"
     }
+
+}
+
+var alfV2
+var vrd2
+function geraDadosCisalhamento() {
+    alfV2 = (1 - (valorFck / 250)).toFixed(2)
+    vrd2 = (0.27 * alfV2 * (fcd / 10) * bw * ALT_UTI).toFixed(2)
+
+    document.getElementById('alfV2').value = alfV2
+    document.getElementById('vrd2').value = vrd2 + ' kN'
+}
+
+var valFctd
+var yc = document.getElementById('yc').value
+var valVc
+var valFywk
+var valPswMin
+var valVswMin
+var valVsdMin
+var valAswMin
+function geraDadosVcVsw() {
+    valFctd = parseFloat((((0.21 * Math.pow(valorFck, 2 / 3)) / yc) / 10).toFixed(3))
+    document.getElementById('fctd').value = valFctd + ' kN/cm²'
+
+    valVc = parseFloat((0.6 * valFctd * bw * ALT_UTI).toFixed(3))
+    document.getElementById('Vc').value = valVc + ' kN'
+
+    valFywk = parseFloat(((fyk / 10) / ysAs).toFixed(2))
+    document.getElementById('fywk').value = valFywk
+
+    /*pswmin*/
+    var tabPswMin = [
+        ca25 = {
+            c25: (0.205 / 100).toFixed(5),
+            c30: (0.230 / 100).toFixed(5),
+            c35: (0.257 / 100).toFixed(5),
+            c40: (0.281 / 100).toFixed(5),
+            c45: (0.304 / 100).toFixed(5),
+            c50: (0.326 / 100).toFixed(5),
+            c55: (0.331 / 100).toFixed(5),
+            c60: (0.344 / 100).toFixed(5),
+            c65: (0.356 / 100).toFixed(5),
+            c70: (0.367 / 100).toFixed(5),
+            c75: (0.377 / 100).toFixed(5),
+            c80: (0.387 / 100).toFixed(5),
+            c85: (0.396 / 100).toFixed(5),
+            c90: (0.405 / 100).toFixed(5)
+        },
+        ca50 = {
+            c25: (0.103 / 100).toFixed(5),
+            c30: (0.116 / 100).toFixed(5),
+            c35: (0.128 / 100).toFixed(5),
+            c40: (0.140 / 100).toFixed(5),
+            c45: (0.152 / 100).toFixed(5),
+            c50: (0.163 / 100).toFixed(5),
+            c55: (0.166 / 100).toFixed(5),
+            c60: (0.172 / 100).toFixed(5),
+            c65: (0.178 / 100).toFixed(5),
+            c70: (0.183 / 100).toFixed(5),
+            c75: (0.189 / 100).toFixed(5),
+            c80: (0.194 / 100).toFixed(5),
+            c85: (0.198 / 100).toFixed(5),
+            c90: (0.203 / 100).toFixed(5)
+        },
+        ca60 = {
+            c25: (0.085 / 100).toFixed(5),
+            c30: (0.097 / 100).toFixed(5),
+            c35: (0.107 / 100).toFixed(5),
+            c40: (0.117 / 100).toFixed(5),
+            c45: (0.127 / 100).toFixed(5),
+            c50: (0.136 / 100).toFixed(5),
+            c55: (0.138 / 100).toFixed(5),
+            c60: (0.143 / 100).toFixed(5),
+            c65: (0.148 / 100).toFixed(5),
+            c70: (0.153 / 100).toFixed(5),
+            c75: (0.157 / 100).toFixed(5),
+            c80: (0.161 / 100).toFixed(5),
+            c85: (0.165 / 100).toFixed(5),
+            c90: (0.169 / 100).toFixed(5)
+        }
+    ]
+
+    /*ARRAY: CA-25 = 0, CA-50 = 1, CA-60 = 2*/
+    var buscaFyk2 = document.getElementById('FYK-ACO');
+    var fyk2 = (buscaFyk2.options[buscaFyk2.selectedIndex].text)
+    var Cfck = 'c' + valorFck
+    
+    if (fyk2 == 'CA-25') {
+        fyk2 = 0
+    } else if (fyk2 == 'CA-50') {
+        fyk2 = 1
+    } else {
+        fyk2 = 2
+    }
+
+    valPswMin = tabPswMin[fyk2]
+    valPswMin = parseFloat(valPswMin[Cfck])
+    document.getElementById('psw-Min').value = (valPswMin * 100).toFixed(3) + ' %'
+
+    valVswMin = parseFloat((valPswMin * 0.9 * bw * ALT_UTI * valFywk).toFixed(3))
+    document.getElementById('Vsw-Min').value = valVswMin + ' kN'
+
+    valVsdMin = parseFloat((valVswMin + valVc).toFixed(3))
+    document.getElementById('Vsd-Min').value = valVsdMin + ' kN'
+    
+    valAswMin = parseFloat((valPswMin * bw).toFixed(4))
+    document.getElementById('asw-min').value = (valAswMin * 100) + ' cm²/cm'
+}
+
+var vdCis
+var vrd2Cis
+var vsdMinCis
+function geraVerificacaoCisalhamento() {
 
 }

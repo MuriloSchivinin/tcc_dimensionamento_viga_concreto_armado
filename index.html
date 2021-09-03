@@ -116,18 +116,18 @@
 
             <div>
                 <H3><br>COBRIMENTO mm</H3>
-                <input id="cobrimento" type="text" disabled="disabled">
+                <input id="cobrimento" type="text" disabled="disabled" value="-">
             </div>
 
             <div>
                 <H3>ALTURA <br>(PRE-DIMENSIONAMENTO) cm</H3>
-                <input id="altPre" type="text" disabled="disabled">
+                <input id="altPre" type="text" disabled="disabled" value="-">
             </div>
             <p id="resultado-altura-pre"></p>
 
             <div>
                 <H3><br>ALTURA ÚTIL (d) cm</H3>
-                <input id="altUti" type="text" disabled="disabled">
+                <input id="altUti" type="text" disabled="disabled" value="-">
             </div>
 
         </div>
@@ -160,7 +160,7 @@
                 <div class="div-filha">
                     <H3>Md <br>kN.m</H3>
                     <br>
-                    <input id="MD" type="text" disabled="disabled">
+                    <input id="MD" type="text" disabled="disabled" value="0.00">
                 </div>
             </div>
 
@@ -178,7 +178,7 @@
                 <div class="div-filha">
                     <H3>Vsd <br>kN.m</H3>
                     <br>
-                    <input id="Vsd" type="text" disabled="disabled">
+                    <input id="Vsd" type="text" disabled="disabled" value="0.00">
                 </div>
             </div>
 
@@ -195,16 +195,19 @@
                 </div>
                 <div class="info-ad-acoes">
                     <H3>βx</H3>
-                    <input id="Bx" type="text" disabled="disabled">
+                    <input id="Bx" type="text" disabled="disabled" value="0.00">
                 </div>
+                <p id="resultado-dominio"></p>
                 <p id="resultado-Bx"></p>
             </div>
         </div>
 
         <div id="dados-as">
             <div class="GERA-DADOS">
-                <input type="button" value="GERAR DADOS" onclick="geraDadosAs()">
+                <input type="button" value="GERAR DADOS"
+                    onclick="geraDadosAs(); geraDadosCisalhamento(); geraDadosVcVsw(); geraVerificacaoCisalhamento()">
             </div>
+
             <div class="calculo-as">
                 <div class="div-filha">
                     <H3>As;min</H3>
@@ -225,7 +228,96 @@
             <p id="resultado-As"></p>
         </div>
 
+        <div class="layout" style="margin-top: 10px;">
+            CISALHAMENTO - modelo 1
+        </div>
 
+        <div id="dados-cisalhamento">
+            <div class="calculo-cisalhamento">
+                <div class="div-filha">
+                    <H3>αv2</H3>
+                    <br>
+                    <input id="alfV2" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>Vrd2</H3>
+                    <br>
+                    <input id="vrd2" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+            </div>
+        </div>
+
+        <div class="layout" style="margin-top: 10px;">
+            CÁLCULO DE Vc E Vsw;mín
+        </div>
+
+        <h2 style="margin-bottom: 0px;">Vc = Vc0</h2>
+        <p style="margin-top: 0px;">UMA VEZ QUE SE TRATA DE FLEXÃO SIMPLES E A LINHA NEUTRA ESTÁ DENTRO DA SEÇÃO</p>
+
+        <div class="dados-Vc-Vsw">
+            <div class="calculo-Vc-Vsw">
+                <div class="div-filha">
+                    <H3>fct</H3>
+                    <br>
+                    <input id="fctd" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>Vc</H3>
+                    <br>
+                    <input id="Vc" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>fywk</H3>
+                    <br>
+                    <input id="fywk" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>ρsw;mín</H3>
+                    <br>
+                    <input id="psw-Min" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>Vsw,min</H3>
+                    <br>
+                    <input id="Vsw-Min" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+            </div>
+        </div>
+
+        <div class="dados-Vc-Vsw">
+            <div class="calculo-Vc-Vsw">
+                <div class="div-filha">
+                    <H3>Vsd,min</H3>
+                    <br>
+                    <input id="Vsd-Min" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>asw,min</H3>
+                    <br>
+                    <input id="asw-min" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+            </div>
+        </div>    
+            <h1 style="color: yellow; background-color: black; border-radius: 10px; padding: 5px;">VERIFICAÇÃO AO CISALHAMENTO</h1>
+        <div class="dados-Vc-Vsw">
+            <div class="calculo-Vc-Vsw">
+                <div class="div-filha">
+                    <H3>Vd (kN)</H3>
+                    <br>
+                    <input id="Vd-Cis" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+                <div class="div-filha">
+                    <H3>Vrd2 (kN)</H3>
+                    <br>
+                    <input id="Vrd2-Cis" type="text" min="0" disabled="disabled" value="0.00">
+                </div>                
+                <div class="div-filha">
+                    <H3>Vsd;min (kN)</H3>
+                    <br>
+                    <input id="VsdMin-Cis" type="text" min="0" disabled="disabled" value="0.00">
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- JS -->
