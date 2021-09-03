@@ -491,9 +491,56 @@ function geraDadosVcVsw() {
     document.getElementById('asw-min').value = (valAswMin * 100) + ' cm²/cm'
 }
 
-var vdCis
-var vrd2Cis
-var vsdMinCis
+var valVdCis
+var valVrd2Cis
+var valVsdMinCis
 function geraVerificacaoCisalhamento() {
+    valVdCis = VSD
+    document.getElementById('Vd-Cis').value = valVdCis + ' kN'
+
+    valVrd2Cis = vrd2
+    document.getElementById('Vrd2-Cis').value = valVrd2Cis + ' kN'
+
+    valVsdMinCis = valVsdMin
+    document.getElementById('VsdMin-Cis').value = valVsdMinCis + ' kN'
+
+    /*INFORMAÇÕES CISALHAMENTO*/
+    let RESULT_Vrd2Cisal = document.getElementById('info-Vrd2-Cis')
+    if (valVdCis < valVrd2Cis) {
+        RESULT_Vrd2Cisal.innerHTML = `Vd < Vrd2 portanto as bielas resistem`
+        RESULT_Vrd2Cisal.style.background = "#e9fc2c"
+        RESULT_Vrd2Cisal.style.color = "black"
+        RESULT_Vrd2Cisal.style.fontWeight = "bold"
+        RESULT_Vrd2Cisal.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_Vrd2Cisal.style.fontSize = "25px"
+        RESULT_Vrd2Cisal.style.borderRadius = "10px"
+    } else {
+        RESULT_Vrd2Cisal.innerHTML = `Vd > Vrd2 realizar verificação das bielas`
+        RESULT_Vrd2Cisal.style.background = "#e9fc2c"
+        RESULT_Vrd2Cisal.style.color = "black"
+        RESULT_Vrd2Cisal.style.fontWeight = "bold"
+        RESULT_Vrd2Cisal.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_Vrd2Cisal.style.fontSize = "25px"
+        RESULT_Vrd2Cisal.style.borderRadius = "10px"
+    }
+
+    let RESULT_VsdMinCisal = document.getElementById('info-VsdMin-Cis')
+    if (valVdCis < valVsdMinCis) {
+        RESULT_VsdMinCisal.innerHTML = `Adotar Vsd;min = ${valVsdMinCis} kN`
+        RESULT_VsdMinCisal.style.background = "#e9fc2c"
+        RESULT_VsdMinCisal.style.color = "black"
+        RESULT_VsdMinCisal.style.fontWeight = "bold"
+        RESULT_VsdMinCisal.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_VsdMinCisal.style.fontSize = "25px"
+        RESULT_VsdMinCisal.style.borderRadius = "10px"
+    } else {
+        RESULT_VsdMinCisal.innerHTML = `Adotar Vd = ${valVdCis} kN`
+        RESULT_VsdMinCisal.style.background = "#e9fc2c"
+        RESULT_VsdMinCisal.style.color = "black"
+        RESULT_VsdMinCisal.style.fontWeight = "bold"
+        RESULT_VsdMinCisal.style.fontFamily = "'Roboto', sans-serif"
+        RESULT_VsdMinCisal.style.fontSize = "25px"
+        RESULT_VsdMinCisal.style.borderRadius = "10px"
+    }    
 
 }
