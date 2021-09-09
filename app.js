@@ -194,6 +194,7 @@ function geraDadosAcoesAtuantes() {
             x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
             x1 = parseFloat(x1)
             x2 = parseFloat(x2)
+
             /*CASO X1 E X2 FOREM MAIOR QUE 0,45, ARMADURA DUPLA*/
             if (Math.min(x1, x2) > 0.35) {
                 BxDim = 0.35
@@ -280,27 +281,20 @@ var valAlinS
 var asAdotado
 var alinAdotado
 var ysAs
+var fyd
+var pMin
 function geraDadosAs() {
     ysAs = document.getElementById('ys').value;
-
+    
     if (valorFck <= 50) {
-        var pminBaixaResistencia = {
-            C25: (0.150 / 100).toFixed(5),
-            C30: (0.150 / 100).toFixed(5),
-            C35: (0.164 / 100).toFixed(5),
-            C40: (0.179 / 100).toFixed(5),
-            C45: (0.194 / 100).toFixed(5),
-            C50: (0.208 / 100).toFixed(5)
-        }
-
-        var buscaFck2 = document.getElementById('FCK-CONCRETO');
-        var fck2 = (buscaFck2.options[buscaFck2.selectedIndex].text)
-        var pMin = pminBaixaResistencia[fck2]
+    fyd = (fyk / ysAs).toFixed(2)
+    pMin = (0.035 * (fcd/fyd)).toFixed(3)
+    pMin = Math.max(pMin, 0.015)
 
         if (msgBx == 'SIMPLES') {
 
             valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
-            valAs = ((0.68 * ALT_UTI * bw * BxDim * fcd) / (fyk / ysAs)).toFixed(2)
+            valAs = ((0.68 * ALT_UTI * bw * BxDim * fcd) / fyd).toFixed(2)
 
             document.getElementById('As-min').value = valAsMin + ' cm²'
             document.getElementById('As').value = valAs + ' cm²'
@@ -320,25 +314,13 @@ function geraDadosAs() {
 
     }
     else if (valorFck > 50) {
-        var pminAltaResistencia = {
-            C55: (0.211 / 100).toFixed(5),
-            C60: (0.219 / 100).toFixed(5),
-            C65: (0.226 / 100).toFixed(5),
-            C70: (0.233 / 100).toFixed(5),
-            C75: (0.239 / 100).toFixed(5),
-            C80: (0.245 / 100).toFixed(5),
-            C85: (0.251 / 100).toFixed(5),
-            C90: (0.256 / 100).toFixed(5)
-        }
-
-        var buscaFck3 = document.getElementById('FCK-CONCRETO');
-        var fck3 = (buscaFck3.options[buscaFck3.selectedIndex].text)
-        var pMin2 = pminAltaResistencia[fck3]
+        fyd = (fyk / ysAs).toFixed(2)
+        pMin = (0.035 * (fcd/fyd)).toFixed(5)
 
         if (msgBx == 'SIMPLES') {
 
-            valAsMin = (pMin2 * bw * ALT_PRE).toFixed(2)
-            valAs = ((bw * ALT_UTI * BxDim * fcd * lambida * alfaC) / (fyk / ysAs)).toFixed(2)
+            valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
+            valAs = ((bw * ALT_UTI * BxDim * fcd * lambida * alfaC) / fyd).toFixed(2)
 
             document.getElementById('As-min').value = valAsMin + ' cm²'
             document.getElementById('As').value = valAs + ' cm²'
@@ -346,7 +328,7 @@ function geraDadosAs() {
         }
         else {
 
-            valAsMin = (pMin2 * bw * ALT_PRE).toFixed(2)
+            valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
             valAlinS = (((MD * 100) - (bw * (Math.pow(ALT_UTI, 2)) * BxDim * (fcd / 10) * lambida * alfaC * (1 - (lambida / 2) * BxDim))) / ((fyk / 10 / ysAs) * (ALT_UTI - (ALT_PRE - ALT_UTI)))).toFixed(2)
             valAs = ((bw * ALT_UTI * BxDim * (fcd / 10) + (valAlinS * (fyk / 10 / ysAs))) / (fyk / 10 / ysAs)).toFixed(2)
 
