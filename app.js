@@ -60,8 +60,10 @@ function geraDadosIniciais() {
     ALT_PRE = (document.getElementById('vao').value) * 10
     document.getElementById('altPre').value = ALT_PRE + ' cm'
     let RESULT_ALT_PRE = document.getElementById('resultado-altura-pre')
+    let valArmaduraPele
     if (ALT_PRE >= 60) {
-        RESULT_ALT_PRE.innerHTML = 'Será necessário utilizar armadura de pele.'
+        valArmaduraPele = Math.min((0.001 * ((document.getElementById('vao').value) * (document.getElementById('largura').value))), 5)
+        RESULT_ALT_PRE.innerHTML = `Será necessário utilizar armadura de pele. --> Valor da Armadura = ${valArmaduraPele}`
         RESULT_ALT_PRE.style.background = "rgb(243, 74, 68)"
         RESULT_ALT_PRE.style.color = "black"
         RESULT_ALT_PRE.style.fontWeight = "bold"
@@ -143,6 +145,7 @@ function geraDadosAcoesAtuantes() {
             x2 = ((-b - Math.sqrt(delta)) / (2 * a)).toFixed(3)
             x1 = parseFloat(x1)
             x2 = parseFloat(x2)
+
             /*CASO X1 E X2 FOREM MAIOR QUE 0,45, ARMADURA DUPLA*/
             if (Math.min(x1, x2) > 0.45) {
                 BxDim = 0.45
@@ -289,10 +292,10 @@ function geraDadosAs() {
     if (valorFck <= 50) {
     fyd = (fyk / ysAs).toFixed(2)
     pMin = (0.035 * (fcd/fyd)).toFixed(3)
-    pMin = Math.max(pMin, 0.015)
+    pMin = Math.max(pMin, 0.0015)
 
         if (msgBx == 'SIMPLES') {
-
+            
             valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
             valAs = ((0.68 * ALT_UTI * bw * BxDim * fcd) / fyd).toFixed(2)
 
@@ -316,9 +319,10 @@ function geraDadosAs() {
     else if (valorFck > 50) {
         fyd = (fyk / ysAs).toFixed(2)
         pMin = (0.035 * (fcd/fyd)).toFixed(5)
-
+        pMin = Math.max(pMin, 0.0015)
+        
+        console.log(`pMin = ${pMin}; MD = ${MD};bw = ${bw}; ALT_UTI = ${ALT_UTI};BxDim = ${BxDim};fcd = ${fcd};fyk = ${fyk};ysAs = ${ysAs};ALT_PRE = ${ALT_PRE}`)
         if (msgBx == 'SIMPLES') {
-
             valAsMin = (pMin * bw * ALT_PRE).toFixed(2)
             valAs = ((bw * ALT_UTI * BxDim * fcd * lambida * alfaC) / fyd).toFixed(2)
 
@@ -340,10 +344,20 @@ function geraDadosAs() {
 
     if (msgBx == 'SIMPLES') {
         asAdotado = Math.max(valAsMin, valAs)
+        if (asAdotado > (0.004 * (bw*ALT_PRE))) {
+            alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
+            document.location.reload(true) 
+        }
     } else if (msgBx == 'DUPLA') {
         asAdotado = Math.max(valAsMin, valAs)
         alinAdotado = Math.max(valAlinS, valAsMin)
+        if ((asAdotado+alinAdotado) > (0.004 * (bw*ALT_PRE))) {
+            alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
+            document.location.reload(true) 
+        }
     }
+
+    
 
     let RESULT_As = document.getElementById('resultado-As')
     if (msgBx == 'SIMPLES') {
@@ -355,7 +369,7 @@ function geraDadosAs() {
         RESULT_As.style.fontSize = "30px"
         RESULT_As.style.borderRadius = "10px"
     } else {
-        RESULT_As.innerHTML = `AS adotado: ${asAdotado} cm²; A's adotado: ${alinAdotado} cm²`
+        RESULT_As.innerHTML = `AS adotado(As + A's): ${asAdotado + alinAdotado} cm²`
         RESULT_As.style.background = "#e9fc2c"
         RESULT_As.style.color = "black"
         RESULT_As.style.fontWeight = "bold"
