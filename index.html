@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- FONTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +14,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modal.css">
 
     <title>INFORMAÇÕES INICIAIS</title>
 </head>
 
 <body>
+    <!--
+   <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(1);"><span class="tooltiptext">Ver mais</span></i>
+-->
 
     <div id="container">
         <div class="layout">
@@ -27,7 +30,7 @@
         </div>
         <div id="INFO-INICIAIS">
             <div class="div-filha">
-                <H3>CLASSE DE RESISTÊNCIA DO CONCRETO (fck)</H3>
+                <H3>CLASSE DE RESISTÊNCIA DO CONCRETO (fck) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(1);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <select id="FCK-CONCRETO" onchange="fncFck()">
                     <option value="C25">C25</option>
                     <option value="C30">C30</option>
@@ -48,7 +51,7 @@
             </div>
 
             <div class="div-filha" onchange="fncFyk()">
-                <H3>CLASSE DE RESISTÊNCIA DO AÇO</H3>
+                <H3>CLASSE DE RESISTÊNCIA DO AÇO <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(2);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <select id="FYK-ACO">
                     <option value="CA-25">CA-25</option>
                     <option value="CA-50" selected="select">CA-50</option>
@@ -204,8 +207,7 @@
 
         <div id="dados-as">
             <div class="GERA-DADOS">
-                <input type="button" value="GERAR DADOS"
-                    onclick="geraDadosAs(); geraDadosCisalhamento(); geraDadosVcVsw(); geraVerificacaoCisalhamento()">
+                <input type="button" value="GERAR DADOS" onclick="geraDadosAs(); geraDadosCisalhamento(); geraDadosVcVsw(); geraVerificacaoCisalhamento()">
             </div>
 
             <div class="calculo-as">
@@ -297,8 +299,8 @@
                     <input id="asw-min" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
             </div>
-        </div>    
-            <h1 style="color: yellow; background-color: black; border-radius: 10px; padding: 5px;">VERIFICAÇÃO AO CISALHAMENTO</h1>
+        </div>
+        <h1 style="color: yellow; background-color: black; border-radius: 10px; padding: 5px;">VERIFICAÇÃO AO CISALHAMENTO</h1>
         <div class="dados-Vc-Vsw">
             <div class="calculo-Vc-Vsw">
                 <div class="div-filha">
@@ -312,7 +314,7 @@
                     <br>
                     <input id="Vrd2-Cis" type="text" min="0" disabled="disabled" value="0.00">
                     <p id="info-Vrd2-Cis" style="color: yellow;"></p>
-                </div>                
+                </div>
                 <div class="div-filha">
                     <H3>Vsd;min (kN)</H3>
                     <br>
@@ -323,8 +325,26 @@
         </div>
 
     </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close"><i class="fas fa-times-circle" style="color: red"></i></span>
+            <div class="conteudo">
+                <span class="titulo" id="modal-titulo"></span>
+                <p class="texto" id="modal-texto"></p>
+            </div>
+
+        </div>
+
+    </div>
+
     <!-- JS -->
     <script src="app.js"></script>
+    <script src="modal.js"></script>
+    <script src="https://kit.fontawesome.com/2b55b5860a.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
