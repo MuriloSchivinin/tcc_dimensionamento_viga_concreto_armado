@@ -15,6 +15,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="scroollbar.css">
 
     <title>INFORMAÇÕES INICIAIS</title>
 </head>
@@ -61,7 +62,7 @@
             </div>
 
             <div class="div-filha">
-                <H3>CLASSE DE AGRESSIVIDADE</H3>
+                <H3>CLASSE DE AGRESSIVIDADE <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(3);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <br>
                 <select id="CLASSES">
                     <option value="I">I - FRACA</option>
@@ -72,19 +73,19 @@
             </div>
 
             <div class="div-filha">
-                <H3><br>VÃO EFETIVO (m)</H3>
+                <H3><br>VÃO EFETIVO (m) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(4);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <br>
                 <input id="vao" type="number" min="0" placeholder="Informe o Vão efetivo da Viga:">
             </div>
 
             <div class="div-filha">
-                <H3><br>LARGURA (CM)</H3>
+                <H3><br>LARGURA (CM) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(5);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <br>
                 <input id="largura" type="number" min="0" placeholder="Informe a Largura da Viga:">
             </div>
 
             <div class="div-filha">
-                <H3>DIÂMETRO ARMADURA TRANSVERSAL (Øt)</H3>
+                <H3>DIÂMETRO ARMADURA TRANSVERSAL (Øt) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(6);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <br>
                 <select id="ARM-TRA">
                     <option value="LON1" selected="select">5 mm</option>
@@ -96,7 +97,7 @@
             </div>
 
             <div class="div-filha">
-                <H3>DIÂMETRO ARMADURA LONGITUDINAL (Øl)</H3>
+                <H3>DIÂMETRO ARMADURA LONGITUDINAL (Øl) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(7);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <br>
                 <select id="ARM-LON">
                     <option value="TRA1">6.3 mm</option>
@@ -118,18 +119,18 @@
         <div id="RESULTADOS-INICIAIS">
 
             <div>
-                <H3><br>COBRIMENTO mm</H3>
+                <H3><br>COBRIMENTO mm <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(8);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <input id="cobrimento" type="text" disabled="disabled" value="-">
             </div>
 
             <div>
-                <H3>ALTURA <br>(PRE-DIMENSIONAMENTO) cm</H3>
+                <H3>ALTURA <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(9);"><span class="tooltiptext">Ver mais</span></i> <br>(PRE-DIMENSIONAMENTO) cm </H3>
                 <input id="altPre" type="text" disabled="disabled" value="-">
             </div>
             <p id="resultado-altura-pre"></p>
 
             <div>
-                <H3><br>ALTURA ÚTIL (d) cm</H3>
+                <H3><br>ALTURA ÚTIL (d) cm <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(10);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <input id="altUti" type="text" disabled="disabled" value="-">
             </div>
 
@@ -155,13 +156,13 @@
         <div id="dados-acoes">
             <div class="acoes">
                 <div class="div-filha">
-                    <H3>Mk <br>kN.m</H3>
+                    <H3>Mk <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(11);"><span class="tooltiptext">Ver mais</span></i><br>kN.m</H3>
                     <br>
                     <input id="MK" type="number" min="0" placeholder="Informe o valor do momento:">
                 </div>
 
                 <div class="div-filha">
-                    <H3>Md <br>kN.m</H3>
+                    <H3>Md <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(12);"><span class="tooltiptext">Ver mais</span></i><br>kN.m</H3>
                     <br>
                     <input id="MD" type="text" disabled="disabled" value="0.00">
                 </div>
@@ -173,13 +174,13 @@
 
             <div class="acoes">
                 <div class="div-filha">
-                    <H3>Vsk <br>kN.m</H3>
+                    <H3>Vsk <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(13);"><span class="tooltiptext">Ver mais</span></i><br>kN.m</H3>
                     <br>
                     <input id="Vsk" type="number" min="0" placeholder="Informe o valor do momento:">
                 </div>
 
                 <div class="div-filha">
-                    <H3>Vsd <br>kN.m</H3>
+                    <H3>Vsd <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(14);"><span class="tooltiptext">Ver mais</span></i><br>kN.m</H3>
                     <br>
                     <input id="Vsd" type="text" disabled="disabled" value="0.00">
                 </div>
@@ -212,17 +213,17 @@
 
             <div class="calculo-as">
                 <div class="div-filha">
-                    <H3>As;min</H3>
+                    <H3>As;min <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(15);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="As-min" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>As</H3>
+                    <H3>As <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(16);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="As" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>A's</H3>
+                    <H3>A's <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(17);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="ALs" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
@@ -237,12 +238,12 @@
         <div id="dados-cisalhamento">
             <div class="calculo-cisalhamento">
                 <div class="div-filha">
-                    <H3>αv2</H3>
+                    <H3>αv2 <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(18);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="alfV2" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>Vrd2</H3>
+                    <H3>Vrd2 <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(19);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="vrd2" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
@@ -259,27 +260,27 @@
         <div class="dados-Vc-Vsw">
             <div class="calculo-Vc-Vsw">
                 <div class="div-filha">
-                    <H3>fct</H3>
+                    <H3>fct <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(20);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="fctd" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>Vc</H3>
+                    <H3>Vc <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(21);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vc" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>fywk</H3>
+                    <H3>fywk <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(22);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="fywk" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>ρsw;mín</H3>
+                    <H3>ρsw;mín <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(23);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="psw-Min" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>Vsw,min</H3>
+                    <H3>Vsw,min <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(24);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vsw-Min" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
@@ -289,12 +290,12 @@
         <div class="dados-Vc-Vsw">
             <div class="calculo-Vc-Vsw">
                 <div class="div-filha">
-                    <H3>Vsd,min</H3>
+                    <H3>Vsd,min <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(25);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vsd-Min" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>asw,min</H3>
+                    <H3>asw,min <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(26);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="asw-min" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
@@ -304,19 +305,19 @@
         <div class="dados-Vc-Vsw">
             <div class="calculo-Vc-Vsw">
                 <div class="div-filha">
-                    <H3>Vd (kN)</H3>
+                    <H3>Vd (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(27);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vd-Cis" type="text" min="0" disabled="disabled" value="0.00">
                     <p style="color: yellow;">Valor do esforço cortante de cálculo.</p>
                 </div>
                 <div class="div-filha">
-                    <H3>Vrd2 (kN)</H3>
+                    <H3>Vrd2 (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(28);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vrd2-Cis" type="text" min="0" disabled="disabled" value="0.00">
                     <p id="info-Vrd2-Cis" style="color: yellow;"></p>
                 </div>
                 <div class="div-filha">
-                    <H3>Vsd;min (kN)</H3>
+                    <H3>Vsd;min (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(29);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="VsdMin-Cis" type="text" min="0" disabled="disabled" value="0.00">
                     <p id="info-VsdMin-Cis" style="color: yellow;"></p>
