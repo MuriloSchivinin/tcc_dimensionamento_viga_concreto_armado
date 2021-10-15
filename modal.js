@@ -91,7 +91,7 @@ function processa_mensagem(id_mensagem) {
             texto = '-';
             break;
         case 22:
-            titulo = 'fywk';
+            titulo = 'fywd';
             texto = '-';
             break;
         case 23:
@@ -107,7 +107,7 @@ function processa_mensagem(id_mensagem) {
             texto = '-';
             break;
         case 26:
-            titulo = 'asw,min';
+            titulo = 'asw adotado';
             texto = '-';
             break;
         case 27:

@@ -346,14 +346,14 @@ function geraDadosAs() {
         asAdotado = Math.max(valAsMin, valAs)
         if (asAdotado > (0.004 * (bw*ALT_PRE))) {
             alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
-            document.location.reload(true) 
+            //document.location.reload(true) 
         }
     } else if (msgBx == 'DUPLA') {
         asAdotado = Math.max(valAsMin, valAs)
         alinAdotado = Math.max(valAlinS, valAsMin)
         if ((asAdotado+alinAdotado) > (0.004 * (bw*ALT_PRE))) {
             alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
-            document.location.reload(true) 
+            //document.location.reload(true) 
         }
     }
 
@@ -369,7 +369,7 @@ function geraDadosAs() {
         RESULT_As.style.fontSize = "30px"
         RESULT_As.style.borderRadius = "10px"
     } else {
-        RESULT_As.innerHTML = `AS adotado(As + A's): ${asAdotado + alinAdotado} cm²`
+        RESULT_As.innerHTML = `AS adotado(As + A's): ${(asAdotado + alinAdotado).toFixed(4)} cm²`
         RESULT_As.style.background = "#e9fc2c"
         RESULT_As.style.color = "black"
         RESULT_As.style.fontWeight = "bold"
@@ -397,7 +397,6 @@ var valFywk
 var valPswMin
 var valVswMin
 var valVsdMin
-var valAswMin
 function geraDadosVcVsw() {
     valFctd = parseFloat((((0.21 * Math.pow(valorFck, 2 / 3)) / yc) / 10).toFixed(3))
     document.getElementById('fctd').value = valFctd + ' kN/cm²'
@@ -483,27 +482,22 @@ function geraDadosVcVsw() {
     valVsdMin = parseFloat((valVswMin + valVc).toFixed(3))
     document.getElementById('Vsd-Min').value = valVsdMin + ' kN'
     
-    valAswMin = parseFloat((valPswMin * bw).toFixed(4))
-    document.getElementById('asw-min').value = (valAswMin * 100) + ' cm²/cm'
 }
 
-var valVdCis
-var valVrd2Cis
-var valVsdMinCis
+var valAsw
+var valVsw
+var valAswMin
 function geraVerificacaoCisalhamento() {
-    valVdCis = VSD
-    document.getElementById('Vd-Cis').value = valVdCis + ' kN'
+    document.getElementById('Vd-Cis').value = VSD + ' kN'
 
-    valVrd2Cis = vrd2
-    document.getElementById('Vrd2-Cis').value = valVrd2Cis + ' kN'
+    document.getElementById('Vrd2-Cis').value = vrd2 + ' kN'
 
-    valVsdMinCis = valVsdMin
-    document.getElementById('VsdMin-Cis').value = valVsdMinCis + ' kN'
+    document.getElementById('VsdMin-Cis').value = valVsdMin + ' kN'
 
     /*INFORMAÇÕES CISALHAMENTO*/
     let RESULT_Vrd2Cisal = document.getElementById('info-Vrd2-Cis')
-    if (valVdCis < valVrd2Cis) {
-        RESULT_Vrd2Cisal.innerHTML = `Vd < Vrd2 portanto as bielas resistem`
+    if (VSD < vrd2) {
+        RESULT_Vrd2Cisal.innerHTML = 'Vd < Vrd2 portanto as bielas resistem'
         RESULT_Vrd2Cisal.style.background = "#e9fc2c"
         RESULT_Vrd2Cisal.style.color = "black"
         RESULT_Vrd2Cisal.style.fontWeight = "bold"
@@ -511,7 +505,7 @@ function geraVerificacaoCisalhamento() {
         RESULT_Vrd2Cisal.style.fontSize = "25px"
         RESULT_Vrd2Cisal.style.borderRadius = "10px"
     } else {
-        RESULT_Vrd2Cisal.innerHTML = `Vd > Vrd2 realizar verificação das bielas`
+        RESULT_Vrd2Cisal.innerHTML = 'Vd > Vrd2 realizar verificação das bielas'
         RESULT_Vrd2Cisal.style.background = "#e9fc2c"
         RESULT_Vrd2Cisal.style.color = "black"
         RESULT_Vrd2Cisal.style.fontWeight = "bold"
@@ -521,22 +515,29 @@ function geraVerificacaoCisalhamento() {
     }
 
     let RESULT_VsdMinCisal = document.getElementById('info-VsdMin-Cis')
-    if (valVdCis < valVsdMinCis) {
-        RESULT_VsdMinCisal.innerHTML = `Adotar Vsd;min = ${valVsdMinCis} kN`
+    if (VSD < valVsdMin) {
+        RESULT_VsdMinCisal.innerHTML = `Adotar Vsd;min = ${valVsdMin} kN`
         RESULT_VsdMinCisal.style.background = "#e9fc2c"
         RESULT_VsdMinCisal.style.color = "black"
         RESULT_VsdMinCisal.style.fontWeight = "bold"
         RESULT_VsdMinCisal.style.fontFamily = "'Roboto', sans-serif"
         RESULT_VsdMinCisal.style.fontSize = "25px"
         RESULT_VsdMinCisal.style.borderRadius = "10px"
+
+        valAswMin = parseFloat((valPswMin * bw).toFixed(2))
+        document.getElementById('asw').value = (valAswMin * 100) + ' cm²/cm'
     } else {
-        RESULT_VsdMinCisal.innerHTML = `Adotar Vd = ${valVdCis} kN`
+        RESULT_VsdMinCisal.innerHTML = `Adotar Vd = ${VSD} kN`
         RESULT_VsdMinCisal.style.background = "#e9fc2c"
         RESULT_VsdMinCisal.style.color = "black"
         RESULT_VsdMinCisal.style.fontWeight = "bold"
         RESULT_VsdMinCisal.style.fontFamily = "'Roboto', sans-serif"
         RESULT_VsdMinCisal.style.fontSize = "25px"
         RESULT_VsdMinCisal.style.borderRadius = "10px"
+
+        valVsw = VSD - valVc
+        valAsw = (valVsw / (0.9 * ALT_UTI * valFywk)) * 100
+        document.getElementById('asw').value = valAsw.toFixed(2) + ' cm²/cm'
     }    
 
 }

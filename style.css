@@ -171,6 +171,11 @@ select {
     display: inline-block;
 }
 
+.dados-AS {
+    margin-top: 5px;
+    padding: 5px;
+    display: inline-block;
+}
 
 .calculo-Vc-Vsw {
     display: flex;
