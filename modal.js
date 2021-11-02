@@ -139,7 +139,15 @@ function processa_mensagem(id_mensagem) {
         case 27:
             titulo = `Vsd (kN)`;
             texto = 'Força cortante solicitante de cálculo.';
-            break;                          
+            break;  
+        case 100:
+            titulo = `Tabela 1.3a (PINHEIRO)`;
+            texto = '<img src="img/tabela_libanio.jpg" alt="TABELA 1.3a" width=850 height=1250>';
+            break;     
+        case 101:
+            titulo = `Tabela 1.4a (PINHEIRO)`;
+            texto = '<img src="img/tabela_libanio2.png" alt="TABELA 1.4a" width=850 height=1250>';
+            break;                            
         default:
             titulo = '';
             texto = 'Descrição inválida!';
