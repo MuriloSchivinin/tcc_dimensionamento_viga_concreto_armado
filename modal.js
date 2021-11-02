@@ -8,120 +8,138 @@ function processa_mensagem(id_mensagem) {
     switch (id_mensagem) {
         case 1:
             titulo = 'CLASSE DE RESISTÊNCIA DO CONCRETO (fck)';
-            texto = '-';
+            texto = 'Resistência característica à compressão do concreto';
             break;
         case 2:
-            titulo = 'CLASSE DE RESISTÊNCIA DO AÇO';
-            texto = '-';
+            titulo = 'CLASSE DE RESISTÊNCIA DO AÇO (fyk)';
+            texto = 'Resistência característica ao escoamento do aço.';
             break;
         case 3:
             titulo = 'CLASSE DE AGRESSIVIDADE';
-            texto = '-';
+            texto = `<img src="img/classe_agressividade.png" alt="CLASSE DE AGRESSIVIDADE" width=680 height=480>
+                     <br>
+                     <p style="background-color: white; color: black;">FONTE: (ABNT NBR 6118:2014)</p>`;
             break;
         case 4:
             titulo = 'VÃO EFETIVO (m)';
-            texto = '-';
+            texto = '<img src="img/vao_efetivo.png" alt="VAO EFETIVO" width=680 height=480>';
             break;
         case 5:
             titulo = 'LARGURA (CM)';
-            texto = '-';
+            texto = `A viga não deve apresentar largura inferior a 12 cm, porém, em casos excepcionais, essa limitação pode ser reduzida até 10 cm, respeitando as condições exigidas pelo item 13.2.2 da ABNT NBR 6118:2014. 
+                     Respeitando a arquitetura do projeto, aconselha-se adotar a largura da viga, de modo que a fique embutida nas faces da parede. `;
             break;
         case 6:
             titulo = 'DIÂMETRO ARMADURA TRANSVERSAL (Øt)';
-            texto = '-';
+            texto = 'Para efeitos de cálculo, utiliza-se o diâmetro da armadutra transversal como 5 mm apenas para o pré-dimensionamento.';
             break;
         case 7:
             titulo = 'DIÂMETRO ARMADURA LONGITUDINAL (Øl)';
-            texto = '-';
+            texto = 'Para efeitos de cálculo, utiliza-se o diâmetro da armadutra longitudinal como 10 mm apenas para o pré-dimensionamento.';
             break;
         case 8:
             titulo = 'COBRIMENTO mm';
-            texto = '-';
+            texto = `<img src="img/cobrimento.png" alt="COBRIMENTO" width=680 height=480>
+                     <br>
+                     <p style="background-color: white; color: black;">FONTE: (ABNT NBR 6118:2014)</p>`;
             break;  
         case 9:
             titulo = 'ALTURA (PRE-DIMENSIONAMENTO) cm';
-            texto = '-';
+            texto = `A altura da viga é obtida através de uma estimativa grosseira, fornecida pelas equações abaixo:<br><br>
+                     <img src="img/altura_preDimensionamento.png" alt="some text" width=600 height=300>`;
             break;
         case 10:
             titulo = 'ALTURA ÚTIL (d) cm';
-            texto = '-';
+            texto = `A relação entre a altura total e a altura útil é dada pela equação abaixo: <br><br>
+                     <img src="img/altura_util1.png" alt="ALTURA ÚTIL" width=600 height=300>
+                     <img src="img/altura_util2.png" alt="ALTURA ÚTIL" width=550 height=300><br>
+                     <p style="background-color: white; color: black;">FONTE: (PINHEIRO; MUZARDO e SANTOS, 2003)</p`;
+            break;
+        case 99:
+            titulo = 'ɣc / ɣs';
+            texto = `O item 12.4 da ABNT NBR 6118:2014, define que as resistências dos materiais precisam ser minoradas para efeitos de cálculos através de um coeficiente. No caso do estado-limite último, o coeficiente de ponderação para as combinações normais, especiais ou de construção e excepcionais é dado conforme com a tabela 1.<br><br>
+                     <img src="img/ys_yc.png" alt="ALTURA ÚTIL" width=600 height=300>`;
+            break; 
+        case 98:
+            titulo = 'Fcd Mpa';
+            texto = 'Resistência de cálculo do concreto.';
+            break;
+        case 96:
+            titulo = 'Fyd Mpa';
+            texto = 'Resistência de Cálculo ao Escoamento do Aço.';
+            break;
+        case 97:
+            titulo = 'βx';
+            texto = 'O valor de βx corresponde a relação da linha neutra e altura útil da viga.';
             break;
         case 11:
             titulo = 'Mk kN.m';
-            texto = '-';
+            texto = 'Momento Fletor característico do concreto.';
             break;
         case 12:
             titulo = 'Md kN.m';
-            texto = '-';
+            texto = 'Momento Fletor de cálculo.';
             break;
         case 13:
             titulo = 'Vsk kN.m';
-            texto = '-';
+            texto = 'Força Cortante característica do concreto.';
             break;
         case 14:
             titulo = 'Vsd kN.m';
-            texto = '-';
+            texto = 'Força Cortante solicitante de cálculo.';
             break;
         case 15:
             titulo = 'As;min';
-            texto = '-';
+            texto = 'Armadura longitudinal miníma à ser adotada.';
             break;
         case 16:
             titulo = 'As';
-            texto = '-';
+            texto = 'Armadura longitudinal calculada para a região tracionada.';
             break;
         case 17:
             titulo = `A's`;
-            texto = '-';
+            texto = 'Armadura longitudinal calculada para a região comprimida. Em casos de armadura dupla, apenas.';
             break;
         case 18:
             titulo = 'αv2';
-            texto = '-';
+            texto = '<img src="img/alfaV2.png" alt="ALTURA ÚTIL" width=500 height=50>';
             break;  
         case 19:
-            titulo = 'Vrd2';
-            texto = '-';
+            titulo = 'Vrd2 kN';
+            texto = 'Força cortante resistente de cálculo, relativa à ruína das bielas comprimidas de concreto';
             break;
         case 20:
             titulo = 'fct';
-            texto = '-';
+            texto = 'Resistência do concreto à tração direta.';
             break;     
         case 21:
             titulo = 'Vc';
-            texto = '-';
+            texto = 'Cálculo da parcela de força cortante resistida por mecanismos complementares ao modelo em treliça.';
             break;
         case 22:
-            titulo = 'fywd';
-            texto = '-';
+            titulo = 'fywd kN/cm²';
+            texto = 'Resistência de Cálculo ao Escoamento do Aço.';
             break;
         case 23:
             titulo = 'ρsw;mín';
-            texto = '-';
+            texto = 'Taxa miníma de armadura transversal.';
             break;
         case 24:
             titulo = 'Vsw,min';
-            texto = '-';
+            texto = 'Força cortante resistida pela armadura transversal.';
             break;
         case 25:
             titulo = 'Vsd,min';
-            texto = '-';
+            texto = 'Força cortante solicitante de cálculo miníma.';
             break;
         case 26:
             titulo = 'asw adotado';
-            texto = '-';
+            texto = 'Armadura transversal adotada.';
             break;
         case 27:
-            titulo = `Vd (kN)`;
-            texto = '-';
-            break;
-        case 28:
-            titulo = 'Vrd2 (kN)';
-            texto = '-';
-            break;  
-        case 29:
-            titulo = 'Vrd2 (kN)';
-            texto = '-';
-            break;                              
+            titulo = `Vsd (kN)`;
+            texto = 'Força cortante solicitante de cálculo.';
+            break;                          
         default:
             titulo = '';
             texto = 'Descrição inválida!';

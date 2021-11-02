@@ -1,3 +1,7 @@
+var ysAs = document.getElementById('ys').value;
+var yc = document.getElementById('yc').value;
+
+
 document.getElementById('fck').value = 25 + ' Mpa'
 document.getElementById('Fcd').value = (25 / document.getElementById('yc').value).toFixed(2) + ' Mpa'
 var fcd = (25 / document.getElementById('yc').value).toFixed(2)
@@ -13,11 +17,18 @@ function fncFck() {
 
 document.getElementById('fyk').value = 500 + ' Mpa'
 var fyk = document.getElementById('fyk').value = 500
+var fyd = (fyk / ysAs).toFixed(2)
+document.getElementById('Fyd').value = fyd
 function fncFyk() {
     let buscaFyk = document.getElementById('FYK-ACO');
     fyk = (buscaFyk.options[buscaFyk.selectedIndex].text).substring(3, 5)
     document.getElementById('fyk').value = fyk * 10 + ' Mpa'
+
+    fyd = ((fyk * 10) / ysAs).toFixed(2)
+    document.getElementById('Fyd').value = fyd + ' Mpa'
 }
+
+
 
 // VARIÁVEIS IREI GERAR
 var COBRIMENTO
@@ -283,14 +294,10 @@ var valAsMin
 var valAlinS
 var asAdotado
 var alinAdotado
-var ysAs
-var fyd
 var pMin
 function geraDadosAs() {
-    ysAs = document.getElementById('ys').value;
-    
+
     if (valorFck <= 50) {
-    fyd = (fyk / ysAs).toFixed(2)
     pMin = (0.035 * (fcd/fyd)).toFixed(3)
     pMin = Math.max(pMin, 0.0015)
 
@@ -317,7 +324,6 @@ function geraDadosAs() {
 
     }
     else if (valorFck > 50) {
-        fyd = (fyk / ysAs).toFixed(2)
         pMin = (0.035 * (fcd/fyd)).toFixed(5)
         pMin = Math.max(pMin, 0.0015)
         
@@ -391,7 +397,6 @@ function geraDadosCisalhamento() {
 }
 
 var valFctd
-var yc = document.getElementById('yc').value
 var valVc
 var valFywk
 var valPswMin
@@ -405,7 +410,7 @@ function geraDadosVcVsw() {
     document.getElementById('Vc').value = valVc + ' kN'
 
     valFywk = parseFloat(((fyk / 10) / ysAs).toFixed(2))
-    document.getElementById('fywk').value = valFywk
+    document.getElementById('fywk').value = valFywk + ' kN/cm²'
 
     /*pswmin*/
     var tabPswMin = [

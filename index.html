@@ -51,9 +51,9 @@
                 <input id="fck" type="text" disabled="disabled" style="margin-top: 5px;">
             </div>
 
-            <div class="div-filha" onchange="fncFyk()">
-                <H3>CLASSE DE RESISTÊNCIA DO AÇO <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(2);"><span class="tooltiptext">Ver mais</span></i></H3>
-                <select id="FYK-ACO">
+            <div class="div-filha">
+                <H3>CLASSE DE RESISTÊNCIA DO AÇO (fyk)<i class="fas fa-circle-question tooltip" onclick="processa_mensagem(2);"><span class="tooltiptext">Ver mais</span></i></H3>
+                <select id="FYK-ACO" onchange="fncFyk()">
                     <option value="CA-25">CA-25</option>
                     <option value="CA-50" selected="select">CA-50</option>
                     <option value="CA-60">CA-60</option>
@@ -144,11 +144,11 @@
 
         <div>
             <div class="info-ad-acoes">
-                <H3>ɣc</H3>
+                <H3>ɣc <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(99);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <input id="yc" type="text" disabled="disabled" value="1.4">
             </div>
             <div class="info-ad-acoes">
-                <H3>ɣs</H3>
+                <H3>ɣs<i class="fas fa-circle-question tooltip" onclick="processa_mensagem(99);"><span class="tooltiptext">Ver mais</span></i></H3>
                 <input id="ys" type="text" disabled="disabled" value="1.15">
             </div>
         </div>
@@ -194,11 +194,15 @@
         <div>
             <div class="info-Bx">
                 <div class="info-ad-acoes">
-                    <H3>Fcd</H3>
+                    <H3>Fcd<i class="fas fa-circle-question tooltip" onclick="processa_mensagem(98);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <input id="Fcd" type="text" disabled="disabled">
                 </div>
                 <div class="info-ad-acoes">
-                    <H3>βx</H3>
+                    <H3>Fyd<i class="fas fa-circle-question tooltip" onclick="processa_mensagem(96);"><span class="tooltiptext">Ver mais</span></i></H3>
+                    <input id="Fyd" type="text" disabled="disabled">
+                </div>
+                <div class="info-ad-acoes">
+                    <H3>βx<i class="fas fa-circle-question tooltip" onclick="processa_mensagem(97);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <input id="Bx" type="text" disabled="disabled" value="0.00">
                 </div>
                 <p id="resultado-dominio"></p>
@@ -300,18 +304,18 @@
         <div class="dados-Vc-Vsw">
             <div class="calculo-Vc-Vsw">
                 <div class="div-filha">
-                    <H3>Vd (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(27);"><span class="tooltiptext">Ver mais</span></i></H3>
+                    <H3>Vsd (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(27);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vd-Cis" type="text" min="0" disabled="disabled" value="0.00">
                 </div>
                 <div class="div-filha">
-                    <H3>Vrd2 (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(28);"><span class="tooltiptext">Ver mais</span></i></H3>
+                    <H3>Vrd2 (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(19);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="Vrd2-Cis" type="text" min="0" disabled="disabled" value="0.00">
                     <p id="info-Vrd2-Cis" style="color: yellow;"></p>
                 </div>
                 <div class="div-filha">
-                    <H3>Vsd;min (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(29);"><span class="tooltiptext">Ver mais</span></i></H3>
+                    <H3>Vsd;min (kN) <i class="fas fa-circle-question tooltip" onclick="processa_mensagem(25);"><span class="tooltiptext">Ver mais</span></i></H3>
                     <br>
                     <input id="VsdMin-Cis" type="text" min="0" disabled="disabled" value="0.00">
                     <p id="info-VsdMin-Cis" style="color: yellow;"></p>
