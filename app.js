@@ -296,7 +296,6 @@ var asAdotado
 var alinAdotado
 var pMin
 function geraDadosAs() {
-
     if (valorFck <= 50) {
     pMin = (0.035 * (fcd/fyd)).toFixed(3)
     pMin = Math.max(pMin, 0.0015)
@@ -350,16 +349,28 @@ function geraDadosAs() {
 
     if (msgBx == 'SIMPLES') {
         asAdotado = Math.max(valAsMin, valAs)
+        alert(`Altura do Pre Dimensionamento: ${ALT_PRE} cm`)
+        alert(`As adotado = ${asAdotado} / Cálculo comparativo = ${(0.004 * (bw*ALT_PRE))}`)
         if (asAdotado > (0.004 * (bw*ALT_PRE))) {
             alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
-            //document.location.reload(true) 
+            ALT_PRE = prompt(`Defina uma nova altura:`)
+            if (ALT_PRE != null){
+            document.getElementById('altPre').value = ALT_PRE + ' cm'
+            geraDadosAs()                
+            }
         }
     } else if (msgBx == 'DUPLA') {
         asAdotado = Math.max(valAsMin, valAs)
         alinAdotado = Math.max(valAlinS, valAsMin)
+        alert(`Altura do Pre Dimensionamento: ${ALT_PRE} cm`)
+        alert(`As adotado = ${asAdotado} e A's adotado = ${alinAdotado} / Cálculo comparativo = ${(0.004 * (bw*ALT_PRE))}`)
         if ((asAdotado+alinAdotado) > (0.004 * (bw*ALT_PRE))) {
             alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
-            //document.location.reload(true) 
+            ALT_PRE = prompt(`Defina uma nova altura:`)
+            if (ALT_PRE != null){
+                document.getElementById('altPre').value = ALT_PRE + ' cm'
+                geraDadosAs()                
+                }
         }
     }
 
