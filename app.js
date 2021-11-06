@@ -349,8 +349,7 @@ function geraDadosAs() {
 
     if (msgBx == 'SIMPLES') {
         asAdotado = Math.max(valAsMin, valAs)
-        alert(`Altura do Pre Dimensionamento: ${ALT_PRE} cm`)
-        alert(`As adotado = ${asAdotado} / Cálculo comparativo = ${(0.004 * (bw*ALT_PRE))}`)
+        alert(`Altura Pre-dimensionamento = ${ALT_PRE} / BW: ${bw} / As adotado = ${asAdotado} / Cálculo comparativo = ${(0.004 * (bw*ALT_PRE))}`)
         if (asAdotado > (0.004 * (bw*ALT_PRE))) {
             alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
             ALT_PRE = prompt(`Defina uma nova altura:`)
@@ -363,7 +362,7 @@ function geraDadosAs() {
         asAdotado = Math.max(valAsMin, valAs)
         alinAdotado = Math.max(valAlinS, valAsMin)
         alert(`Altura do Pre Dimensionamento: ${ALT_PRE} cm`)
-        alert(`As adotado = ${asAdotado} e A's adotado = ${alinAdotado} / Cálculo comparativo = ${(0.004 * (bw*ALT_PRE))}`)
+        alert(`Altura Pre-dimensionamento = ${ALT_PRE} / BW: ${bw} / As adotado = ${asAdotado} e A's adotado = ${alinAdotado} / Cálculo comparativo = ${(0.004 * (bw*ALT_PRE))}`)
         if ((asAdotado+alinAdotado) > (0.004 * (bw*ALT_PRE))) {
             alert('Dimensionamento de viga com Armadura Excessiva. Será necessário trocar a seção escolhida!!!')
             ALT_PRE = prompt(`Defina uma nova altura:`)
